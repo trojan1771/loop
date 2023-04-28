@@ -6,7 +6,7 @@ import Maps from './Maps'
 const MainPage = () => {
   return (
     <>
-      <div className='main' style={{ display: 'flex' }}>
+      <div className='main' style={{ display: 'flex', padding: '10px' }}>
         <div className='sidebar' style={{ height: '100vh', width: '20vw' }}>
           <Sidebar />
         </div>
