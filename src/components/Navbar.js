@@ -6,9 +6,11 @@ import searchbk from '../assets/searchback.jpg'
 import Data from '../data/data.js'
 
 const Navbar = ({ data, setData }) => {
+  const [searchkey, setSearchKey] = useState('')
   const [matched, setMatched] = useState([])
 
   const searchhandler = (text) => {
+    setSearchKey(text)
     let matches = data.filter((rest) => {
       const regex = new RegExp(`${text}`, 'gi')
       return rest.name.match(regex)
@@ -73,6 +75,7 @@ const Navbar = ({ data, setData }) => {
           <InputGroup.Text id='basic-addon2'>Find</InputGroup.Text>
         </InputGroup>
         {matched.length > 0 &&
+          searchkey.length > 0 &&
           matched.map((rest) => {
             return (
               <div

@@ -39,7 +39,7 @@ const Card = ({ d, handleBookmark, handleRemove, index }) => {
         <Button
           variant='danger'
           style={{ width: '48%' }}
-          onClick={() => handleRemove()}
+          onClick={() => handleRemove({ index })}
         >
           Remove
         </Button>{' '}

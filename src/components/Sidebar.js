@@ -2,9 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 import logo from '../assets/logo.jpeg'
 
-const Sidebar = () => {
-  const [activeTab, setActiveTab] = useState('home')
-
+const Sidebar = ({ activeTab, setActiveTab }) => {
   return (
     <>
       <div

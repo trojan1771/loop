@@ -3,7 +3,7 @@ import Data from '../data/data.js'
 import Card from './Card.js'
 import { useState } from 'react'
 
-const Maps = ({ data, setData }) => {
+const Maps = ({ data, setData, activeTab, setActiveTab }) => {
   const [Show, setShow] = useState([])
   console.log('data', data)
 
@@ -28,7 +28,7 @@ const Maps = ({ data, setData }) => {
     setData((prev) => {
       return prev.map((item, i) => {
         console.log('loler')
-        if (i === index) {
+        if (i === index.index) {
           item.bookmarked = true
           console.log('lol it is bookmarked now')
         }
@@ -40,10 +40,17 @@ const Maps = ({ data, setData }) => {
   }
 
   const handleRemove = (index) => {
+    console.log('handlebookmarkremove called with index..', index)
     setData((prev) => {
-      return prev.filter((item, i) => i !== index.index)
+      return prev.map((item, i) => {
+        console.log('loler')
+        if (i === index.index) {
+          item.bookmarked = false
+          console.log('lol it is bookmarked now')
+        }
+        return item
+      })
     })
-    console.log(data)
   }
 
   console.log('data..', data)
@@ -67,17 +74,30 @@ const Maps = ({ data, setData }) => {
           gridGap: '20px',
         }}
       >
-        {data?.map((d, index) => {
-          if (d.display)
-            return (
-              <Card
-                d={d}
-                index={index}
-                handleBookmark={handleBookmark}
-                handleRemove={handleRemove}
-              />
-            )
-        })}
+        {activeTab == 'home' &&
+          data?.map((d, index) => {
+            if (d.display)
+              return (
+                <Card
+                  d={d}
+                  index={index}
+                  handleBookmark={handleBookmark}
+                  handleRemove={handleRemove}
+                />
+              )
+          })}
+        {activeTab == 'bookmarked' &&
+          data?.map((d, index) => {
+            if (d.display && d.bookmarked)
+              return (
+                <Card
+                  d={d}
+                  index={index}
+                  handleBookmark={handleBookmark}
+                  handleRemove={handleRemove}
+                />
+              )
+          })}
       </div>
     </>
   )

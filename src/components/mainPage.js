@@ -7,14 +7,15 @@ import { useState, useEffect } from 'react'
 
 const MainPage = () => {
   const [data, setData] = useState([...Data])
+  const [activeTab, setActiveTab] = useState('home')
 
-  useEffect(() => {}, [data])
+  useEffect(() => {}, [data, activeTab])
 
   return (
     <>
       <div className='main' style={{ display: 'flex', padding: '10px' }}>
         <div className='sidebar' style={{ height: '100vh', width: '20vw' }}>
-          <Sidebar />
+          <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
         </div>
         <div
           style={{
@@ -37,7 +38,12 @@ const MainPage = () => {
               justifyItems: 'center',
             }}
           >
-            <Maps data={data} setData={setData} />
+            <Maps
+              data={data}
+              setData={setData}
+              activeTab={activeTab}
+              setActiveTab={setActiveTab}
+            />
           </div>
         </div>
       </div>
