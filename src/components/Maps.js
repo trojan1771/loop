@@ -1,26 +1,9 @@
 import React from 'react'
-import Data from '../data/data.js'
+
 import Card from './Card.js'
-import { useState } from 'react'
 
 const Maps = ({ data, setData, activeTab, setActiveTab }) => {
-  const [Show, setShow] = useState([])
   console.log('data', data)
-
-  // const updateCards = () => {
-  //   console.log('updateCards called')
-  //   setShow((prev) => {
-  //     return prev.map((item, i) => {
-  //       if (i === index) {
-  //         item.display = true
-  //       } else {
-  //         item.display = false
-  //       }
-  //       return item
-  //     })
-  //   })
-  //   console.log(Show)
-  // }
 
   const handleBookmark = (index) => {
     console.log('handlebookmark called with index..', index)
@@ -40,12 +23,15 @@ const Maps = ({ data, setData, activeTab, setActiveTab }) => {
   }
 
   const handleRemove = (index) => {
-    console.log('handlebookmarkremove called with index..', index)
     setData((prev) => {
       return prev.map((item, i) => {
         console.log('loler')
         if (i === index.index) {
-          item.bookmarked = false
+          if (activeTab == 'home') {
+            item.display = false
+          } else {
+            item.bookmarked = false
+          }
           console.log('lol it is bookmarked now')
         }
         return item
@@ -53,7 +39,7 @@ const Maps = ({ data, setData, activeTab, setActiveTab }) => {
     })
   }
 
-  console.log('data..', data)
+  console.log('data..', data.records)
   return (
     <>
       <div

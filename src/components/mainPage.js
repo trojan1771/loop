@@ -2,14 +2,69 @@ import React from 'react'
 import Sidebar from './Sidebar'
 import Navbar from './Navbar'
 import Maps from './Maps'
-import Data from '../data/data.js'
+
 import { useState, useEffect } from 'react'
 
 const MainPage = () => {
-  const [data, setData] = useState([...Data])
+  const [data, setData] = useState([])
+
   const [activeTab, setActiveTab] = useState('home')
 
-  useEffect(() => {}, [data, activeTab])
+  const fetchData = async () => {
+    console.log('fetching data...')
+    await fetch(
+      'https://api.airtable.com/v0/appjWdL7YgpxIxCKA/restaurants?maxRecords=3&view=Grid%20view',
+      {
+        headers: {
+          Authorization: 'Bearer keyfXgn8PL6pB3x32',
+        },
+      }
+    )
+      .then((res) => res.json())
+      .then((Data) => {
+        let newarray = []
+        Data.records.map((item) => {
+          let small = { id: '', bookmarked: false, display: false, name: '' }
+
+          small.id = item.id
+          small.name = item.fields.Name
+          newarray.push(small)
+        })
+        setData(newarray)
+      })
+    console.log('lol', data)
+  }
+
+  // fetchData()
+
+  //console.log('data  inside useEffect..', data)
+
+  useEffect(() => {
+    console.log('fetching data...')
+    fetch(
+      'https://api.airtable.com/v0/appjWdL7YgpxIxCKA/restaurants?maxRecords=3&view=Grid%20view',
+      {
+        headers: {
+          Authorization: 'Bearer keyfXgn8PL6pB3x32',
+        },
+      }
+    )
+      .then((res) => res.json())
+      .then((Data) => {
+        let newarray = []
+        Data.records.map((item) => {
+          let small = { id: '', bookmarked: false, display: false, name: '' }
+
+          small.id = item.id
+          small.name = item.fields.Name
+          newarray.push(small)
+        })
+        setData(newarray)
+      })
+    console.log('lol', data)
+  }, [])
+
+  console.log('data at 33..', data)
 
   return (
     <>
