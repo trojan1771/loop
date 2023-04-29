@@ -3,13 +3,27 @@ import Data from '../data/data.js'
 import Card from './Card.js'
 import { useState } from 'react'
 
-const Maps = () => {
-  const [data, setData] = useState([...Data])
+const Maps = ({ data, setData }) => {
+  const [Show, setShow] = useState([])
   console.log('data', data)
+
+  // const updateCards = () => {
+  //   console.log('updateCards called')
+  //   setShow((prev) => {
+  //     return prev.map((item, i) => {
+  //       if (i === index) {
+  //         item.display = true
+  //       } else {
+  //         item.display = false
+  //       }
+  //       return item
+  //     })
+  //   })
+  //   console.log(Show)
+  // }
 
   const handleBookmark = (index) => {
     console.log('handlebookmark called with index..', index)
-    // data[index].bookmarked = true
 
     setData((prev) => {
       return prev.map((item, i) => {
@@ -54,14 +68,15 @@ const Maps = () => {
         }}
       >
         {data?.map((d, index) => {
-          return (
-            <Card
-              d={d}
-              index={index}
-              handleBookmark={handleBookmark}
-              handleRemove={handleRemove}
-            />
-          )
+          if (d.display)
+            return (
+              <Card
+                d={d}
+                index={index}
+                handleBookmark={handleBookmark}
+                handleRemove={handleRemove}
+              />
+            )
         })}
       </div>
     </>

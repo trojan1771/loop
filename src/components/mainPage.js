@@ -2,8 +2,14 @@ import React from 'react'
 import Sidebar from './Sidebar'
 import Navbar from './Navbar'
 import Maps from './Maps'
+import Data from '../data/data.js'
+import { useState, useEffect } from 'react'
 
 const MainPage = () => {
+  const [data, setData] = useState([...Data])
+
+  useEffect(() => {}, [data])
+
   return (
     <>
       <div className='main' style={{ display: 'flex', padding: '10px' }}>
@@ -20,7 +26,7 @@ const MainPage = () => {
           }}
         >
           <div className='searchbar' style={{ width: '80vw', height: '100px' }}>
-            <Navbar />
+            <Navbar data={data} setData={setData} />
           </div>
           <div
             className='maps'
@@ -31,7 +37,7 @@ const MainPage = () => {
               justifyItems: 'center',
             }}
           >
-            <Maps />
+            <Maps data={data} setData={setData} />
           </div>
         </div>
       </div>
